@@ -40,7 +40,9 @@ app.use('*', (req, res, next) => {
     next();
 })
 
-app.listen(8001, function () {
+let port = process.env.PORT||8001;
+
+app.listen(port, function () {
     //Note: /wsdl route will be handled by soap module
     //and all other routes & middleware will continue to work
     soap.listen(app, '/wsdl', myService, xml);

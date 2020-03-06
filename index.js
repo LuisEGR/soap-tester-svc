@@ -34,8 +34,8 @@ app.use(bodyParser.raw({ type: function () { return true; }, limit: '5mb' }));
 app.use('*', (req, res, next) => {
     console.log("\n\n\nNewRequest-----", (new Date()).toISOString());
     console.log("RequestHeaders:\n", req.headers);
-    // console.log("RequestBody:\n", req.body);
-    if(req.body && typeof Buffer.isBuffer(req.body)){
+    console.log("RequestBody:\n", req.body);
+    if(req.body && req.body.length){
         let body = Buffer.from(req.body).toString('utf-8');
         console.log('body :\n', body);
     }

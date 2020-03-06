@@ -35,7 +35,7 @@ app.use('*', (req, res, next) => {
     console.log("\n\n\nNewRequest-----", (new Date()).toISOString());
     console.log("RequestHeaders:\n", req.headers);
     // console.log("RequestBody:\n", req.body);
-    if(req.body){
+    if(req.body && typeof Buffer.isBuffer(req.body)){
         let body = Buffer.from(req.body).toString('utf-8');
         console.log('body :\n', body);
     }

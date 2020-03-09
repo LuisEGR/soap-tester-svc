@@ -24,10 +24,10 @@
         <operation name = "MyFunction">
             <soap:operation soapAction = "MyFunction"/>
             <input>
-                <soap:body encodingStyle = "http://schemas.xmlsoap.org/soap/encoding/" namespace = "urn:examples:MyService" use = "encoded"/>
+                <soap:body encodingStyle = "http://schemas.xmlsoap.org/soap/encoding/" namespace = "urn:examples:MyService" use = "literal"/>
             </input>
             <output>
-                <soap:body encodingStyle = "http://schemas.xmlsoap.org/soap/encoding/" namespace = "urn:examples:MyService" use = "encoded"/>
+                <soap:body encodingStyle = "http://schemas.xmlsoap.org/soap/encoding/" namespace = "urn:examples:MyService" use = "literal"/>
             </output>
         </operation>
     </binding>

@@ -4,13 +4,11 @@ const express = require('express');
 const bodyParser = require('body-parser');
 
 var myService = {
-    MyService: {
-        MyPort: {
-            MyFunction: function (args) {
+    DummyService: {
+        DummyPortType: {
+            Dummy: function (args) {
                 console.log('args :', args);
-                return {
-                    name: args.name
-                };
+                return "Recibí:" + args;
             },
         }
     }

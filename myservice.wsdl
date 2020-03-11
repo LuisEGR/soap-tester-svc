@@ -1,43 +1,48 @@
-<definitions name = "MyService"
-   targetNamespace = "http://www.examples.com/wsdl/MyService.wsdl"
-   xmlns = "http://schemas.xmlsoap.org/wsdl/"
-   xmlns:soap = "http://schemas.xmlsoap.org/wsdl/soap/"
-   xmlns:tns = "http://www.examples.com/wsdl/MyService.wsdl"
-   xmlns:xsd = "http://www.w3.org/2001/XMLSchema">
-
-    <message name = "MyFunctionRequest">
-        <part name = "name" type = "xsd:string"/>
-    </message>
-    <message name = "MyFunctionResponse">
-        <part name = "status" type = "xsd:string"/>
-    </message>
-    <portType name = "MyPort">
-        <operation name = "MyFunction">
-            <input message = "tns:MyFunctionRequest"/>
-            <output message = "tns:MyFunctionResponse"/>
-        </operation>
-    </portType>
-
-    <binding name = "MyFunction_Binding" type = "tns:MyPort">
-        <soap:binding style = "rpc"
-         transport = "http://schemas.xmlsoap.org/soap/http"/>
-        <operation name = "MyFunction">
-            <soap:operation soapAction = "MyFunction"/>
-            <input>
-                <soap:body encodingStyle = "http://schemas.xmlsoap.org/soap/encoding/" namespace = "urn:examples:MyService" use = "literal"/>
-            </input>
-            <output>
-                <soap:body encodingStyle = "http://schemas.xmlsoap.org/soap/encoding/" namespace = "urn:examples:MyService" use = "literal"/>
-            </output>
-        </operation>
-    </binding>
-
-    <service name = "MyService">
-        <documentation>WSDL File</documentation>
-        <port binding = "tns:MyFunction_Binding" name = "MyPort">
-            <soap:address
-            location = "https://soap-testing.herokuapp.com/wsdl?wsdl" />
-        </port>
-    </service>
-
-</definitions>
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions targetNamespace="http://localhost:8001/wsdl" 
+    xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" 
+    xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" 
+    xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+    xmlns:tns="http://localhost:8001/wsdl" 
+    xmlns:ns="http://schemas.xmlsoap.org/soap/encoding/">
+    <wsdl:types>
+        <xs:schema>
+            <xs:element name="DummyResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="DummyResult" type="xs:string"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+        </xs:schema>
+    </wsdl:types>
+    <wsdl:message name="DummyRequest">
+        <wsdl:part name="DummyRequest" type="xs:string"/>
+    </wsdl:message>
+    <wsdl:message name="DummyResponse">
+        <wsdl:part name="DummyResponse" type="xs:string"/>
+    </wsdl:message>
+    <wsdl:portType name="DummyPortType">
+        <wsdl:operation name="Dummy">
+            <wsdl:input message="tns:DummyRequest"/>
+            <wsdl:output message="tns:DummyResponse"/>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:binding name="DummyBinding" type="tns:DummyPortType">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation name="Dummy">
+            <soap:operation soapAction="http://localhost:8001/wsdl#Dummy" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:service name="DummyService">
+        <wsdl:port name="DummyPortType" binding="tns:DummyBinding">
+            <soap:address location="http://localhost:8001/wsdl"/>
+        </wsdl:port>
+    </wsdl:service>
+</wsdl:definitions>

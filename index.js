@@ -8,7 +8,7 @@ var myService = {
         DummyPortType: {
             Dummy: function (args) {
                 console.log('args :', args);
-                return "Recibí:" + args;
+                return "Recibí:" + JSON.stringify(args);
             },
         }
     }

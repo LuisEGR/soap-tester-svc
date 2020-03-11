@@ -1,26 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<wsdl:definitions targetNamespace="http://soap-testing.herokuapp.com/wsdl" 
+<wsdl:definitions targetNamespace="http://soap-testing.herokuapp.com" 
     xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" 
     xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" 
     xmlns:xs="http://www.w3.org/2001/XMLSchema" 
-    xmlns:tns="http://soap-testing.herokuapp.com/wsdl" 
+    xmlns:tns="http://soap-testing.herokuapp.com" 
     xmlns:ns="http://schemas.xmlsoap.org/soap/encoding/">
     <wsdl:types>
-        <xs:schema>
-            <xs:element name="DummyResponse">
-                <xs:complexType>
+        <xs:schema targetNamespace="http://soap-testing.herokuapp.com">
+            <xs:complexType name="DummyResponseObj">
+                <xs:sequence>
+                    <xs:element name="DummyResult" type="xs:string"/>
+                </xs:sequence>
+            </xs:complexType>
+
+            <xs:complexType name="DummyRequestObj">
                     <xs:sequence>
-                        <xs:element name="DummyResult" type="xs:string"/>
+                        <xs:element name="data" type="xs:string"/>
                     </xs:sequence>
-                </xs:complexType>
-            </xs:element>
+            </xs:complexType>
+
+            <xs:element name="DummyResponseObj" type="tns:DummyResponseObj"/>
+            <xs:element name="DummyRequestObj" type="tns:DummyRequestObj"/>
         </xs:schema>
     </wsdl:types>
     <wsdl:message name="DummyRequest">
-        <wsdl:part name="DummyRequest" type="xs:string"/>
+        <wsdl:part name="DummyRequest" element="tns:DummyRequestObj"/>
     </wsdl:message>
     <wsdl:message name="DummyResponse">
-        <wsdl:part name="DummyResponse" type="xs:string"/>
+        <wsdl:part name="DummyResponse" element="tns:DummyResponseObj"/>
     </wsdl:message>
     <wsdl:portType name="DummyPortType">
         <wsdl:operation name="Dummy">
@@ -42,6 +49,7 @@
     </wsdl:binding>
     <wsdl:service name="DummyService">
         <wsdl:port name="DummyPortType" binding="tns:DummyBinding">
+            <!-- <soap:address location="http://localhost:8001/wsdl"/> -->
             <soap:address location="http://soap-testing.herokuapp.com/wsdl"/>
         </wsdl:port>
     </wsdl:service>

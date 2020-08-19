@@ -2,6 +2,7 @@ const http = require('http');
 const soap = require('soap');
 const express = require('express');
 const bodyParser = require('body-parser');
+const basicAuth = require('express-basic-auth')
 
 var myService = {
     FieldwyService: {
@@ -29,8 +30,13 @@ var xml = require('fs').readFileSync('myservice2.wsdl', 'utf8');
 
 //express server example
 var app = express();
+
+app.use(basicAuth({
+    users: { 'strat': 'strat_testpwd' }
+}))
+
 //body parser middleware are supported (optional)
-app.use(bodyParser.raw({ type: function () { return true; }, limit: '5mb' }));
+app.use(bodyParser.raw({ type: function () { return true; }, limit: '50mb' }));
 
 app.use('*', (req, res, next) => {
     console.log("\n\n\nNewRequest-----", (new Date()).toISOString());
@@ -40,6 +46,8 @@ app.use('*', (req, res, next) => {
         let body = Buffer.from(req.body).toString('utf-8');
         console.log('body :\n', body);
     }
+
+
     next();
 })
 

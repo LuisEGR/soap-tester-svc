@@ -4,19 +4,20 @@ const express = require('express');
 const bodyParser = require('body-parser');
 
 var myService = {
-    DummyService: {
-        DummyPortType: {
-            Dummy: function (args) {
+    FieldwyService: {
+        FieldwyPort: {
+            ENVIAR: function (args) {
                 console.log('args :', args);
                 return {
-                    DummyResult: "Recibí:" + JSON.stringify(args)
+                    errorMessage: "Recibí:" + JSON.stringify(args),
+                    error: false
                 }
             },
         }
     }
 };
 
-var xml = require('fs').readFileSync('myservice.wsdl', 'utf8');
+var xml = require('fs').readFileSync('myservice2.wsdl', 'utf8');
 
 //http server example
 // var server = http.createServer(function (request, response) {

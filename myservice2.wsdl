@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions targetNamespace="http://soap-testing.herokuapp.com" 
+    xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" 
+    xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" 
+    xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+    xmlns:tns="http://soap-testing.herokuapp.com" 
+    xmlns:ns="http://schemas.xmlsoap.org/soap/encoding/">
+    <wsdl:types>
+        <xs:schema targetNamespace="http://soap-testing.herokuapp.com">
+            <xs:complexType name="ResponseObj">
+                <xs:sequence>
+                    <xs:element name="errorMessage" type="xs:string"/>
+                    <xs:element name="error" type="xs:boolean"/>
+                </xs:sequence>
+            </xs:complexType>
+
+            <xs:complexType name="RequestObj">
+                    <xs:sequence>
+                        <xs:element name="cadenaInformacion" type="xs:string"/>                        
+                    </xs:sequence>
+            </xs:complexType>
+
+            <xs:element name="ResponseObj" type="tns:ResponseObj"/>
+            <xs:element name="RequestObj" type="tns:RequestObj"/>
+        </xs:schema>
+    </wsdl:types>
+    <wsdl:message name="Request">
+        <wsdl:part name="Request" element="tns:RequestObj"/>
+    </wsdl:message>
+    <wsdl:message name="Response">
+        <wsdl:part name="Response" element="tns:ResponseObj"/>
+    </wsdl:message>
+    <wsdl:portType name="FieldwyPort">
+        <wsdl:operation name="ENVIAR">
+            <wsdl:input message="tns:Request"/>
+            <wsdl:output message="tns:Response"/>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:binding name="PEDIDOS_FIELDWY" type="tns:FieldwyPort">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation name="ENVIAR">
+            <soap:operation soapAction="http://soap-testing.herokuapp.com/wsdl#Dummy" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:service name="FieldwyService">
+        <wsdl:port name="FieldwyPort" binding="tns:PEDIDOS_FIELDWY">
+            <soap:address location="http://localhost:8001/wsdl"/>
+            <!-- <soap:address location="http://soap-testing.herokuapp.com/wsdl"/> -->
+        </wsdl:port>
+    </wsdl:service>
+</wsdl:definitions>
